@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User Booking</title>
+
+<style>
+body {
+    font-family:Poppins, sans-serif;
+    padding:20px;
+    background:#e9f9f6;
+    animation: fadeIn 1s;
+    text-align: center;
+}
+
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+.package-card {
+    display:flex;
+    background:white;
+    padding:15px;
+    margin-bottom:15px;
+    border-radius:12px;
+    box-shadow:0 3px 12px rgba(0,0,0,0.1);
+    animation: zoomIn 0.7s;
+}
+
+@keyframes zoomIn {
+    from {transform:scale(0.95); opacity:0;}
+    to {transform:scale(1); opacity:1;}
+}
+
+.package-card img {
+    width:130px;
+    height:90px;
+    margin-right:15px;
+    border-radius:10px;
+    object-fit:cover;
+}
+
+input, select {
+    width:100%;
+    padding:10px;
+    margin-top:8px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+button {
+    background:#00b89b;
+    padding:12px 20px;
+    border:none;
+    color:white;
+    font-weight:bold;
+    border-radius:8px;
+    margin-top:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover { transform:scale(1.05); }
+</style>
+
+</head>
+<body>
+
+<h2>Book Your Package</h2>
+
+<select id="selectPkg"></select>
+<input type="text" id="userName" placeholder="Your Name" required>
+<input type="tel" id="mobile" placeholder="Your Mobile Number" required>
+<input type="date" id="tripDate" required>
+<input type="email" id="email" placeholder="Please enter your email" required>
+
+    <select id="payment" required>
+    <option value="">Select Payment Mode</option>
+    <option>UPI</option>
+    <option>Card</option>
+    <option>Net Banking</option>
+</select>
+<button onclick="bookNow()">Book Now</button>
+
+<h2>Your Bookings</h2>
+<div id="myBookings"></div>
+
+<script>
+let packages = JSON.parse(localStorage.getItem("packages") || "[]");
+let bookings = JSON.parse(localStorage.getItem("bookings") || "[]");
+
+function showPackages() {
+    selectPkg.innerHTML = packages.map(p => 
+        `<option>${p.name} - ₹${p.price}</option>`
+    );
+}
+
+function bookNow() {
+    let user = userName.value.trim();
+    let mobileNo = mobile.value.trim();
+    let pkg = selectPkg.value.trim();
+    let date = tripDate.value;
+    let mail = email.value.trim();
+    let pay = payment.value;
+
+    // REQUIRED VALIDATION
+    if (user === "" || mobileNo === "" || pkg === "" || date === "" || mail === "" || pay === "") {
+        alert("Please fill all fields before booking the package!");
+        return; 
+    }
+
+    // MOBILE NUMBER VALIDATION (10 digits)
+    if (mobileNo.length !== 10 || isNaN(mobileNo)) {
+        alert("Please enter a valid 10-digit mobile number!");
+        return;
+    }
+
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+    alert("Booking Successful!");
+    loadMyBookings();
+}
+
+function loadMyBookings() {
+    myBookings.innerHTML = "";
+    bookings.forEach((b, i) => {
+        if(b.user === userName.value){
+            myBookings.innerHTML += `
+            <div class="package-card">
+                <div>
+                    <b>${b.package}</b><br>
+                    <input type="date" value="${b.date}" onchange="changeDate(${i}, this.value)">
+                    <button onclick="cancel(${i})">Cancel</button>
+                </div>
+            </div>`;
+        }
+    });
+}
+
+function changeDate(i, d) {
+    bookings[i].date = d;
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+}
+
+function cancel(i){
+    bookings.splice(i,1);
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+    loadMyBookings();
+}
+
+showPackages();
+loadMyBookings();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,306 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+   text-align: center;
+}
+
+.container {
+  width: 90%;
+  margin: auto;
+}
+
+.header {
+  /* background: #0077b6; */
+  background: url("head.jpg") center/cover no-repeat;
+  color: #fff;
+  padding: 10px 0;
+  position: sticky;
+  top:0;
+  text-align: center;
+  /* background-attachment: fixed;  */
+  
+}
+
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: bold;
+   text-align: center;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px 20px;
+  background: #b1ca24;
+  border: none;
+  color: rgb(66, 40, 172);
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 10%;
+}
+
+  
+.mobile-toggle {
+  display: none;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* HERO */
+.hero {
+  height: 650px;
+  background: url("welcome.jpg") center/cover no-repeat;
+  background-attachment: fixed; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-content {
+  color: blue;
+
+}
+
+.hero-content h2 {
+  font-size: 40px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.btn {
+  padding: 10px 20px;
+  background: #ff4d6d;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+  transition:0.3s;
+}
+.btn1 {
+  padding: 10px 20px;
+  background: #45f6cd;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+  transition:0.3s;
+  position: 10px 20px 30px 40px;
+}
+
+
+.flight,.hotel,.packages {
+  padding: 10px 20px;
+  background: #1dc16a;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+} 
+
+/* .hotel {
+  padding: 10px 20px;
+  background: #1dc16a;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.packages {
+  padding: 10px 20px;
+  background: #1dc16a;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+} */
+ .View {
+  padding: 10px 20px;
+  background: #8fd711;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+  transition:0.3s;
+}
+
+/* SERVICES + DESTINATIONS */
+h2 {
+  text-align: center;
+  margin: 0px 0;
+  padding: 40px ;
+  
+}
+
+.service-cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 100px 20px 500px 40px ;
+  /* background: #905c88; */
+  border: 10px;
+  color: rgb(66, 40, 172);
+  cursor: pointer;
+  margin-top: 2px; 
+  margin-bottom: 20px ;
+  background: url("service.jpg") center/cover no-repeat;
+  background-attachment: fixed; 
+  border-radius: 10px;
+
+
+
+}
+.destination-cards1 {
+  display: flex;
+  padding: 100px 20px 130px 40px ;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: center;
+  font-size: 30px;
+  color:rgb(211, 56, 185);
+  background: url("international.jpg") center/cover no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+   
+}
+
+
+.destination-cards2 {
+  display: flex;
+  padding: 100px 20px 130px 40px ;
+  /* justify-content: space-between; */
+  gap: 10px;
+  text-align: center;
+  font-size: 30px;
+  color: rgb(7, 177, 223);
+  background: url("dom.jpg") center/cover no-repeat;
+  background-attachment: fixed;
+  justify-content: center;
+  align-items: center;
+  
+  
+
+}
+
+.card {
+  width: 32%;
+  padding: 20px;
+  /* background: #f0f0f0; */
+  background: transparent;
+  border-color: #ff4d6d;
+  text-align: center;
+  border-radius: 5px;
+}
+
+/* CONTACT */
+.contact-form {
+  
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: auto;
+  gap: 10px;
+  
+
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  
+  
+}
+
+/* FOOTER */
+.footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+  
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+    flex-direction: column;
+    background: #0077b6;
+    padding: 10px 0;
+    text-align: center;
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+
+  .service-cards,
+  .destination-cards {
+    flex-direction: column;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .contact-form {
+    width: 100%;
+  }
+}
+
+h2 {
+  padding: 10px 20px;
+  background: #ff4d6d;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+h4 {
+  padding: 10px 20px;
+  background: #d3cb27;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+

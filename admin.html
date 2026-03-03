@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+
+<style>
+body {
+    font-family: Poppins, sans-serif;
+    background:#f0f7f6;
+    padding:20px;
+    animation: fadeIn 1s;
+    text-align: center;
+  animation: gradientBG 12s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+
+
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
+.box {
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:20px;
+    box-shadow:0 5px 20px rgba(17, 10, 156, 0.1);
+    animation: slideIn 1s;
+   
+
+}
+
+@keyframes slideIn {
+    from {transform:translateY(20px); opacity:0;}
+    to {transform:translateY(0); opacity:1;}
+}
+
+input, textarea {
+    padding:10px;
+    margin:10px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+    width:100%;         
+}
+
+button {
+    padding:10px 20px;
+    background:#00b89b;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    transition:0.3s;
+}
+button:hover { transform: scale(1.05); }
+
+.package-card {
+    display:flex;
+    background:#fff;
+    padding:10px;
+    border-radius:12px;
+    margin-bottom:15px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.package-card img {
+    width:120px;
+    height:80px;
+    border-radius:10px;
+    margin: 15px;
+    object-fit: cover;
+}
+</style>
+
+</head>
+<body>
+
+<h2>Admin Dashboard</h2>
+
+<!-- ADD PACKAGE -->
+<div class="box">
+    <h3>Add Package</h3>
+    <input id="pkgName" placeholder="Package Name" required>
+    <input id="pkgPrice" placeholder="Price" required>
+    <textarea id="pkgDesc" placeholder="Description" required></textarea>
+    <button onclick="addPackage()">Add Package</button>
+</div>
+
+<!-- Existing packages -->
+<div class="box">
+    <h3>Packages</h3>
+    <div id="packageList"></div>
+</div>
+
+<!-- BOOKINGS -->
+<div class="box">
+    <h3>Bookings</h3>
+    <div id="bookingList"></div>
+</div>
+
+<script>
+let sampleImages = [
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    "https://images.unsplash.com/photo-1500375592092-40eb2168fd21",
+    "https://images.unsplash.com/photo-1470770903676-69b98201ea1c",
+    "https://images.unsplash.com/photo-1493558103817-58b2924bce98",
+    "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800",
+    "https://images.unsplash.com/photo-1568564327147-82cc4f5a7ab0",
+    "https://images.unsplash.com/photo-1441716841575-54c31ef5d7aa",
+    "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
+    "https://images.unsplash.com/photo-1549144511-f099e773c147",
+
+    // NEW IMAGES BELOW (11–20)
+    "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1",
+    "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
+    "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
+    "https://images.unsplash.com/photo-1494475673543-6a6a27143b16",
+    "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
+    "https://images.unsplash.com/photo-1482192596544-9eb780fc7f66",
+    "https://images.unsplash.com/photo-1503264116251-35a269479413",
+    "https://images.unsplash.com/photo-1493550170107-3147762db1ce",
+    "https://images.unsplash.com/photo-1454496522488-7a8e488e8606",
+    "https://images.unsplash.com/photo-1441716841646-7263c1b3366d"
+];
+
+let packages = JSON.parse(localStorage.getItem("packages") || "[]");
+let bookings = JSON.parse(localStorage.getItem("bookings") || "[]");
+
+function save() {
+    localStorage.setItem("packages", JSON.stringify(packages));
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+    loadPackages();
+    loadBookings();
+}
+
+function addPackage() {
+
+    let name = pkgName.value.trim();
+    let price = pkgPrice.value.trim();
+    let desc = pkgDesc.value.trim();
+
+    // REQUIRED FIELD VALIDATION
+    if (name === "" || price === "" || desc === "") {
+        alert("Please fill all fields before adding the package!");
+        return; // stop function
+    }
+    let img = sampleImages[Math.floor(Math.random()*sampleImages.length)];
+
+    packages.push({
+        name: pkgName.value,
+        price: pkgPrice.value,
+        desc: pkgDesc.value,
+        img: img
+    });
+
+    pkgName.value = ""; pkgPrice.value = ""; pkgDesc.value = "";
+
+    save();
+}
+
+
+
+function loadPackages() {
+    packageList.innerHTML = "";
+    packages.forEach((p, i) => {
+        packageList.innerHTML += `
+        <div class="package-card">
+            <img src="${p.img}">
+            <div>
+                <b>${p.name}</b><br>
+                <small>${p.desc}</small><br>
+                <input value="${p.price}" onchange="updatePrice(${i}, this.value)">
+                <button onclick="deletePackage(${i})">Delete</button>
+            </div>
+        </div>
+        `;
+    });
+}
+
+function updatePrice(i, val) {
+    packages[i].price = val;
+    save();
+}
+
+// function deletePackage(i) {
+//     packages.splice(i, 1);
+//     save();
+// }
+function deletePackage(i) {
+
+    // Check if user booked this package
+    if (packages[i].booked === true) {
+        alert("This package is already booked by a client.\nPlease convince the client to cancel the booking.\nOnly after cancellation you can delete this package.");
+        return; // ❌ STOP deletion
+    }
+
+    // Ask for confirmation before deleting
+    let confirmDelete = confirm("Are you sure you want to delete this package?");
+    
+    if (confirmDelete) {
+        packages.splice(i, 1); 
+        save(); // If you use localStorage
+        alert("Package deleted successfully.");
+    }
+}
+
+function loadBookings() {
+    bookingList.innerHTML = "";
+    bookings.forEach((b, i) => {
+        bookingList.innerHTML += `
+        <div class="box">
+            <b>${b.user}</b> booked <b>${b.package}</b><br>
+            Date: ${b.date}<br>
+            Payment: ${b.payment}<br>
+            <button onclick="cancelBooking(${i})">Cancel</button>
+        </div>`;
+    });
+}
+
+function cancelBooking(i){
+    bookings.splice(i,1);
+    save();
+}
+
+loadPackages();
+loadBookings();
+</script>
+</body>
+</html>

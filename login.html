@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>✈️Peace Destination Tours🌏Login</title>
+
+<style>
+body {
+    margin:0;
+    font-family: 'Poppins', sans-serif;
+    height:100vh ;
+    position: relative;
+    background:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') center/cover no-repeat;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {opacity:0;}
+    to {opacity:1;}
+}
+
+.login-box {
+    width:500px;
+    padding:30px;
+    background:rgba(0,0,0,0.65);
+    border-radius:15px;
+    backdrop-filter: blur(8px);
+    color:white;
+    animation: slideUp 1.5s ease;
+}
+
+@keyframes slideUp {
+    from {transform: translateY(40px); opacity:0;}
+    to {transform: translateY(0); opacity:1;}
+}
+
+.login-box h2 {
+    text-align:center;
+    margin-bottom:20px;
+}
+
+input {
+    width:450px; padding: 20px;
+    border: 20px ;
+    border-radius:8px;
+    margin:10px 0;
+}
+
+button {
+    width:100%;
+    padding:12px;
+    border:none;
+    background:#00e0b5;
+    color:black;
+    font-weight:bold;
+    border-radius:8px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover {
+    background:#00c49a;
+    transform:scale(1.05);
+}
+</style>
+
+</head>
+<body>
+
+<div class="login-box">
+    <h1>✈️Peace Destination Tours🌏</h1>
+    <h2>Login</h2>
+
+    <input type="text" id="adminUser" placeholder="Username">
+    <input type="password" id="adminPass" placeholder="Password">
+    <button onclick="adminLogin()">Login</button>
+</div>
+
+<script>
+function adminLogin() {
+
+    let u = adminUser.value;
+    let p = adminPass.value;
+
+    if (u === "admin" && p === "sakthi") {
+        window.location.href = "admin.html";   // ADMIN LOGIN
+
+    } else if (u === "sakthi" && p === "1234") {
+        window.location.href = "user.html";    // USER LOGIN
+
+    } else {
+        alert("Invalid Login");                // WRONG LOGIN
+    }
+}
+</script>
+
+</body>
+</html>
